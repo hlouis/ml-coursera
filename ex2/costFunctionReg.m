@@ -18,9 +18,20 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
+regvector = ones(1, size(theta)(1));
+regvector(1,1) = 0;
+%probably should have just used theta(2:end)
 
+regidmat = eye(size(theta)(1));
+regidmat(1,1) = 0;
 
+Jreg = (lambda / (2 * m) * (regvector * theta.^2));
 
+J = (1 / m) * ((-y' * log(sigmoid(X * theta))) - ((1 - y)' * log(1 - sigmoid(X * theta)))) + Jreg;
+
+gradreg = (lambda * theta' * regidmat);
+
+grad = (1 / m) * ((sigmoid(X * theta) - y)' * X + gradreg);
 
 % =============================================================
 

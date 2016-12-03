@@ -16,7 +16,13 @@ p = zeros(m, 1);
 %
 
 
+temp = sigmoid(X * theta);
 
+for i = 1:m
+	if temp(i) >= 0.5
+		p(i) = 1;
+	end
+end
 
 
 
