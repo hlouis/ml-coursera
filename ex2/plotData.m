@@ -12,17 +12,21 @@ figure; hold on;
 %               examples and 'ko' for the negative examples.
 %
 
+% My first try
+% for i=1:size(y)
+%     if (y(i) == 1)
+%         plot(X(i,1), X(i,2), "+k", "markersize", 5)
+%     else
+%         plot(X(i,1), X(i,2), "or", "markersize", 5)
+%     endif
+% endfor
 
-
-
-
-
-
-
-
+% Find Indices of Positive and Negative Examples
+pos = find(y==1); neg = find(y == 0);
+% Plot Examples
+plot(X(pos, 1), X(pos, 2), 'k+','LineWidth', 2, 'MarkerSize', 7);
+plot(X(neg, 1), X(neg, 2), 'ko', 'MarkerFaceColor', 'y', 'MarkerSize', 7);
 % =========================================================================
-
-
 
 hold off;
 
