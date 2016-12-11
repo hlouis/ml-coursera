@@ -62,13 +62,12 @@ Theta2_grad = zeros(size(Theta2));
 %               and Theta2_grad from Part 2.
 %
 
-
-
-% Part1 cost function
 for i=1:m
+    % create target bolean y vector
     yi = zeros(num_labels, 1);
     yi(y(i)) = 1;
 
+    % forward
     a1 = [1; X(i,:)'];
     a2 = [1; sigmoid(Theta1 * a1)];
     h = sigmoid(Theta2 * a2);
@@ -77,18 +76,9 @@ endfor
 
 J /= m;
 
-% Part2
-
-
-
-
-
-
-
-
-
-
-
+% regularization
+jreg = (lambda / (2 * m)) * (sumsq(Theta1(:,2:end)(:)) + sumsq(Theta2(:,2:end)(:)))
+J += jreg;
 
 
 
