@@ -64,8 +64,20 @@ Theta2_grad = zeros(size(Theta2));
 
 
 
+% Part1 cost function
+for i=1:m
+    yi = zeros(num_labels, 1);
+    yi(y(i)) = 1;
 
+    a1 = [1; X(i,:)'];
+    a2 = [1; sigmoid(Theta1 * a1)];
+    h = sigmoid(Theta2 * a2);
+    J += -yi' * log(h) - (1-yi') * log(1-h);
+endfor
 
+J /= m;
+
+% Part2
 
 
 
