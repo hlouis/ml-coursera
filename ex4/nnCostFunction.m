@@ -72,15 +72,25 @@ for i=1:m
     a2 = [1; sigmoid(Theta1 * a1)];
     h = sigmoid(Theta2 * a2);
     J += -yi' * log(h) - (1-yi') * log(1-h);
+
+    % backpropagation
+    delta3 = h - yi;
+    delta2 = Theta2' * delta3 .* (a2 .* (1 - a2));
+    Theta2_grad = Theta2_grad + delta3 * a2';
+    Theta1_grad = Theta1_grad + delta2(2:end) * a1';
+
 endfor
 
 J /= m;
+Theta1_grad = Theta1_grad / m;
+Theta2_grad = Theta2_grad / m;
 
 % regularization
-jreg = (lambda / (2 * m)) * (sumsq(Theta1(:,2:end)(:)) + sumsq(Theta2(:,2:end)(:)))
+jreg = (lambda / (2 * m)) * (sumsq(Theta1(:,2:end)(:)) + sumsq(Theta2(:,2:end)(:)));
 J += jreg;
 
-
+Theta1_grad = Theta1_grad + (lambda / m) * [zeros(size(Theta1, 1), 1) Theta1(:,2:end)];
+Theta2_grad = Theta2_grad + (lambda / m) * [zeros(size(Theta2, 1), 1) Theta2(:,2:end)];
 
 % -------------------------------------------------------------
 
